@@ -3,9 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
-
-from .models import Question
-from .serializers import QuestionSerializer
+from django.shortcuts import get_object_or_404
+from .models import *
+from .serializers import *
 
 import json
 
@@ -25,6 +25,25 @@ def questions_view(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET', 'POST'])
+def polls_view(request):
+    if request.method == 'GET':
+        polls = Polls.objects.all()
+        serializer = PollsSerializer(polls, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = PollsSerializer(data=request.data)
+        if serializer.is_valid():
+            poll = serializer.save()
+            return Response(PollsSerializer(poll).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class QuestionViewSets(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializar_class = QuestionSerializer
+
+
+class PollViewSets(viewsets.ModelViewSet):
+    queryset = Polls.objects.all()
+    serializar_class = PollsSerializer

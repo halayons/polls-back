@@ -8,6 +8,7 @@ router = routers.SimpleRouter()
 app_name = 'polls'
 urlpatterns = [
     path('questions/', apiviews.questions_view, name='questions_view'),
+    path('pname/', apiviews.polls_view, name='polls_view'),
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),

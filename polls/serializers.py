@@ -1,5 +1,5 @@
 from pyexpat import model
-from .models import Question
+from .models import *
 from rest_framework import serializers
 
 
@@ -15,4 +15,10 @@ from rest_framework import serializers
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
+        fields = '__all__'
+
+
+class PollsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Polls
         fields = '__all__'
