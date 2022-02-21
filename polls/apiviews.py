@@ -39,6 +39,14 @@ def polls_view(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def polls_detail_view(request, poll_id):
+    poll = get_object_or_404(Polls, pk=poll_id)
+    if request.method == 'GET':
+        serializer = PollsDetailPageSerializer(poll)
+        return Response(serializer.data)
+
+
 class QuestionViewSets(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializar_class = QuestionSerializer
