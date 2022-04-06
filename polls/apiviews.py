@@ -47,6 +47,20 @@ def polls_detail_view(request, poll_id):
         return Response(serializer.data)
 
 
+@api_view(['GET', 'POST'])
+def choice_view(request):
+    if request.method == 'GET':
+        choices = Choice.objects.all()
+        serializer = ChoiceSerializer(choices, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = ChoiceSerializer(data=request.data)
+        if serializer.is_valid():
+            choice = serializer.save()
+            return Response(ChoiceSerializer(choice).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class QuestionViewSets(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializar_class = QuestionSerializer
@@ -55,3 +69,8 @@ class QuestionViewSets(viewsets.ModelViewSet):
 class PollViewSets(viewsets.ModelViewSet):
     queryset = Polls.objects.all()
     serializar_class = PollsSerializer
+
+
+class ChoiceViewSets(viewsets.ModelViewSet):
+    queryset = Choice.objects.all()
+    serializar_class = ChoiceSerializer

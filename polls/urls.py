@@ -9,6 +9,7 @@ app_name = 'polls'
 urlpatterns = [
     path('questions/', apiviews.questions_view, name='questions_view'),
     path('pname/', apiviews.polls_view, name='polls_view'),
+    path('choice/', apiviews.choice_view, name='choice_view'),
     path('pname/<int:poll_id>/', apiviews.polls_detail_view,
          name='poll_detail_view'),
     path('', views.IndexView.as_view(), name='index'),

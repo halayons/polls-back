@@ -24,6 +24,12 @@ class PollsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ChoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Choice
+        fields = '__all__'
+
+
 class PollsListPageSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     poll_name = serializers.CharField(max_length=200)
