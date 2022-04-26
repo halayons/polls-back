@@ -33,11 +33,9 @@ class Question(models.Model):
 
 class Choice(models.Model):
     poll = models.ForeignKey(Polls, on_delete=models.CASCADE)
-    choice_q1 = models.CharField(max_length=100, blank=True)
-    choice_q2 = models.CharField(max_length=100, blank=True)
-    choice_q3 = models.CharField(max_length=100, blank=True)
-    choice_q4 = models.CharField(max_length=100, blank=True)
-    choice_q5 = models.CharField(max_length=100, blank=True)
+    answer = models.CharField(max_length=100, blank=True)
+    question = models.CharField(max_length=100, blank=True)
+    poll_n = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.poll
